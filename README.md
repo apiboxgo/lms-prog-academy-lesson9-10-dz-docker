@@ -1,5 +1,18 @@
+# Install 
+On an instance
+
+A docker has been installed
+
+```bash
+git clone https://github.com/apiboxgo/lms-prog-academy-lesson9-10-dz-docker.git
+````
+
+```bash
+docker compose up --build -d
+````
 
 
+# Update docker hub
 
 ## Nginx
 
@@ -46,3 +59,33 @@ docker compose down -v
 ````bash
 docker compose up --build
 ````
+
+## Info
+
+Change ip
+config/nginx/symfony.conf 
+server_name: new-ip;
+
+admin/src/App.tsx
+entrypoint="http://new-ip/api"
+
+Deploy
+
+https://github.com/apiboxgo/lms-prog-academy-lesson9-10-dz-php/settings/secrets/actions
+
+DB_PASSWORD: new-db-password
+
+EC2_HOST: new-ip
+
+EC2_KEY: aws-key
+
+EC2_USER: ubuntu
+
+
+https://github.com/apiboxgo/lms-prog-academy-lesson9-10-dz-pwa/settings/secrets/actions
+
+EC2_HOST: new-ip
+
+EC2_KEY: aws-key
+
+EC2_USER: ubuntu
