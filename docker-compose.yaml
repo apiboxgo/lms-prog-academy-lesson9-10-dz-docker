@@ -4,6 +4,8 @@ services:
     ports:
       - "${NGINX_PORT:-8080}:80"
     volumes:
+      - ./config/nginx/default.d:/etc/nginx/default.d
+      - ./config/ssl:/etc/nginx/ssl
       - ./www:/var/www/html
     depends_on:
       - php
