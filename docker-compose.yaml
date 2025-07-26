@@ -5,7 +5,7 @@ services:
       - "${NGINX_PORT:-80}:80"
       - "${NGINX_HTTPS_PORT:-443}:443"
     volumes:
-      - ./config/nginx/default.d:/etc/nginx/default.d
+      - ./config/nginx/:/etc/nginx/config.d
       - ./config/ssl:/etc/nginx/ssl
       - ./www:/var/www/html
     depends_on:
