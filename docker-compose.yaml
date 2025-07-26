@@ -1,0 +1,39 @@
+services:
+  nginx:
+    image: kostiagm/nginx-symfony:latest
+    ports:
+      - "${NGINX_PORT:-8080}:80"
+    volumes:
+      - ./www:/var/www/html
+    depends_on:
+      - php
+
+  php:
+    image: kostiagm/php-symfony:latest
+    volumes:
+      - ./www:/var/www/html
+    depends_on:
+      - db
+
+  db:
+    image: postgres:16
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: ${DB_NAME}
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+    volumes:
+      - db_data:/var/lib/postgresql/data
+    entrypoint: [ "bash", "-c", "echo PASSWORD=$POSTGRES_PASSWORD && exec docker-entrypoint.sh postgres" ]
+
+  frontend:
+    image:  kostiagm/frontend:latest
+    volumes:
+      - ./pwa:/app
+      - /app/node_modules
+    ports:
+      - "5173:5173"
+    command: [ "npm", "run", "dev" ]
+
+volumes:
+  db_data:
